@@ -1,0 +1,50 @@
+{
+    "name": "john-f-morton/craft-entry-editor-links",
+    "description": "Make entry edit links for your entry authors, compatible with statically cached sites.",
+    "type": "craft-plugin",
+    "version": "1.0.0",
+    "license": "proprietary",
+    "support": {
+        "email": "morton@jmx2.com",
+        "issues": "https://github.com/johnfmorton/craft-entry-editor-links/issues?state=open",
+        "source": "https://github.com/johnfmorton/craft-entry-editor-links",
+        "docs": "https://github.com/johnfmorton/craft-entry-editor-links",
+        "rss": "https://github.com/johnfmorton/craft-entry-editor-links/releases.atom"
+    },
+    "require": {
+        "php": ">=8.0.2",
+        "craftcms/cms": "^4.4.7.1"
+    },
+    "require-dev": {
+        "craftcms/ecs": "dev-main",
+        "craftcms/phpstan": "dev-main"
+    },
+    "autoload": {
+        "psr-4": {
+            "johnfmorton\\craftentryeditorlinks\\": "src/"
+        }
+    },
+    "extra": {
+        "handle": "entry-editor-links",
+        "name": "Entry Editor Links",
+        "developer": "John F Morton",
+        "documentationUrl": "https://github.com/johnfmorton/craft-entry-editor-links",
+        "class": "johnfmorton\\craftentryeditorlinks\\EntryEditorLinks"
+    },
+    "scripts": {
+        "check-cs": "ecs check --ansi",
+        "fix-cs": "ecs check --ansi --fix",
+        "phpstan": "phpstan --memory-limit=1G"
+    },
+    "config": {
+        "sort-packages": true,
+        "platform": {
+            "php": "8.0.2"
+        },
+        "allow-plugins": {
+            "yiisoft/yii2-composer": true,
+            "craftcms/plugin-installer": true
+        }
+    }
+}
+

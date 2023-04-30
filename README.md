@@ -1,6 +1,10 @@
 # Entry Editor Link Plugin
 
-This is a plugin for Craft CMS, version 4. It helps make front-end entry edit links for your entry authors compatible with statically cached sites.
+This is a plugin for Craft CMS, version 4. It helps make front-end entry edit links for your entry authors compatible with statically cached sites. 
+
+Here's an example of how my blog looks to me when I'm logged into the site. I can click the pencil icon to edit the entry in the control panel.
+
+![screenshot.png](screenshot.png)
 
 ## Requirements
 

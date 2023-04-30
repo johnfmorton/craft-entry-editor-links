@@ -1,8 +1,13 @@
 {
-    "name": "john-f-morton/craft-entry-editor-links",
+    "name": "johnfmorton/craft-entry-editor-links",
     "description": "Make entry edit links for your entry authors, compatible with statically cached sites.",
     "type": "craft-plugin",
-    "version": "1.0.0",
+    "version": "1.0.1",
+    "keywords": [
+      "craftcms",
+      "craft-plugin",
+      "admin"
+    ],
     "license": "proprietary",
     "support": {
         "email": "morton@jmx2.com",
@@ -47,4 +52,3 @@
         }
     }
 }
-

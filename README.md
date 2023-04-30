@@ -58,7 +58,7 @@ The first step is to render the `data-edit-link` attribute on the element in you
 
 Then, after a page loads, look for any instance of the `data-edit-link` attribute and query the plugin's API endpoint to get the entry's edit URL. If the user is logged in and has permission to edit the entry, the plugin will return the entry's edit URL. Then you can add a link to the edit page in the DOM for the entry.
 
-Here's an example of how you can do this using JavaScript:
+Here's a basic example of how you can do this using JavaScript. You can add this to a JavaScript file that is loaded on the front end of your site. 
 
 ```
 window.addEventListener('load', () => {
@@ -103,3 +103,4 @@ window.addEventListener('load', () => {
     })
 });
 ```
+

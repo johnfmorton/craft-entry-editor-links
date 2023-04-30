@@ -49,7 +49,7 @@ The plugin does two things:
 The first step is to render the `data-edit-link` attribute on the element in your template that displays the entry ID. You can do this by wrapping the attribute in a conditional that checks if the page is being rendered on the front end of the site. For example, you can put this data attribute on the `h1` element that displays the entry title.
 
 ```
-{% if isFrontEndPageView() %}data-edit-link=\"{{ entry.id }}\"{% endif %}
+{% if isFrontEndPageView() %}data-edit-link="{{ entry.id }}"{% endif %}
 ```
 
 Then, after a page loads, look for any instance of the `data-edit-link` attribute and query the plugin's API endpoint to get the entry's edit URL. If the user is logged in and has permission to edit the entry, the plugin will return the entry's edit URL. Then you can add a link to the edit page in the DOM for the entry.

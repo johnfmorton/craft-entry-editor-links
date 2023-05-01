@@ -27,7 +27,7 @@ Open your terminal and run the following commands:
 cd /path/to/my-project.test
 
 # tell Composer to load the plugin
-composer require john-f-morton/craft-entry-editor-links
+composer require johnfmorton/craft-entry-editor-links
 
 # tell Craft to install the plugin
 ./craft plugin/install entry-editor-links

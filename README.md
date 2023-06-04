@@ -1,6 +1,6 @@
 # Entry Editor Link Plugin
 
-This is a plugin for Craft CMS, version 4. It helps make front-end entry edit links for your entry authors compatible with statically cached sites. 
+This is a plugin for Craft CMS, version 4. It helps make front-end entry edit links for your entry authors compatible with statically cached sites.
 
 Here's an example of how my blog looks to me when I'm logged into the site. I can click the pencil icon to edit the entry in the control panel.
 
@@ -58,7 +58,7 @@ The first step is to render the `data-edit-link` attribute on the element in you
 
 Then, after a page loads, look for any instance of the `data-edit-link` attribute and query the plugin's API endpoint to get the entry's edit URL. If the user is logged in and has permission to edit the entry, the plugin will return the entry's edit URL. Then you can add a link to the edit page in the DOM for the entry.
 
-Here's a basic example of how you can do this using JavaScript. You can add this to a JavaScript file that is loaded on the front end of your site. 
+Here's a basic example of how you can do this using JavaScript. You can add this to a JavaScript file that is loaded on the front end of your site.
 
 ```
 window.addEventListener('load', () => {
@@ -104,3 +104,30 @@ window.addEventListener('load', () => {
 });
 ```
 
+### Using the plugin with FastCGI Cache
+
+If you're using FastCGI Cache, you'll need to add a rule to prevent the plugin's API endpoint from being cached. This is because the plugin's API endpoint returns different data depending on whether the user is logged in and has permission to edit the entry. If the endpoint is cached, the edit link will be shown to users who don't have permission to edit the entry.
+
+Here are examples of what that rule might look like for Apache and Nginx servers. Your server may require a different rules, but this should give you an idea of what you need to do.
+
+#### Using a `.htaccess` file with an Apache server
+
+
+```
+# Don't cache the Entry Editor Links API endpoint
+# Uses the mod_headers Apache module
+<IfModule mod_headers.c>
+    <LocationMatch "^/actions/entry-editor-links">
+        Header set Cache-Control "no-store, no-cache, must-revalidate, max-age=0"
+    </LocationMatch>
+</IfModule>
+```
+
+#### Using a `nginx.conf` file with an Nginx server
+
+```
+# Don't cache the Entry Editor Links API endpoint
+location ~ ^/actions/entry-editor-links {
+    set $nocache 1;
+}
+```

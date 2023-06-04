@@ -2,7 +2,7 @@
     "name": "johnfmorton/craft-entry-editor-links",
     "description": "Make entry edit links for your entry authors, compatible with statically cached sites.",
     "type": "craft-plugin",
-    "version": "1.0.2",
+    "version": "1.0.3",
     "keywords": [
       "craftcms",
       "craft-plugin",

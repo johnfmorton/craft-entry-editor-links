@@ -1,6 +1,6 @@
 # Entry Editor Link Plugin
 
-This is a plugin for Craft CMS, version 4. It helps make front-end entry edit links for your entry authors compatible with statically cached sites.
+This is a plugin for Craft CMS, version 4 or version 5. It helps make front-end entry edit links for your entry authors. It's design to work well with statically cached sites, like those using FastCGI Cache. See the [Overview](#overview) section below for more information.
 
 Here's an example of how my blog looks to me when I'm logged into the site. I can click the pencil icon to edit the entry in the control panel.
 
@@ -8,7 +8,7 @@ Here's an example of how my blog looks to me when I'm logged into the site. I ca
 
 ## Requirements
 
-This plugin requires Craft CMS 4.4.7.1 or later, and PHP 8.0.2 or later.
+This plugin requires Craft CMS 4.4.7.1 or later, and PHP 8.0.2 or later. It is also compatible with Craft CMS 5.x.
 
 ## Installation
 
@@ -50,10 +50,21 @@ The plugin does two things:
 
 ### Using the plugin
 
-The first step is to render the `data-edit-link` attribute on the element in your template that displays the entry ID. You can do this by wrapping the attribute in a conditional that checks if the page is being rendered on the front end of the site. For example, you can put this data attribute on the `h1` element that displays the entry title.
+The first step is to render the `data-edit-link` attribute on the element in your template to display the entry ID for the entry you wish to be able to edit. 
+
+Do this by wrapping the attribute in a conditional that checks if the page is being rendered on the front end of the site. 
 
 ```
 {% if isFrontEndPageView() %}data-edit-link="{{ entry.id }}"{% endif %}
+```
+
+If you have a list of entries, you can add the `data-edit-link` attribute to the element that wraps each entry. For example, you can put this data attribute on the `article` element that wraps each entry.
+
+```
+<article {% if isFrontEndPageView() and (entry is defined) %} data-edit-link="{{ entry.id }}"{% endif %}>
+    <h2>{{ entry.title }}</h2>
+    <p>{{ entry.body }}</p>
+</article>
 ```
 
 Then, after a page loads, look for any instance of the `data-edit-link` attribute and query the plugin's API endpoint to get the entry's edit URL. If the user is logged in and has permission to edit the entry, the plugin will return the entry's edit URL. Then you can add a link to the edit page in the DOM for the entry.
@@ -89,7 +100,19 @@ window.addEventListener('load', () => {
                         // set the href attribute
                         link.setAttribute('href', data.message);
                         // set the text
-                        link.innerText = '📝';
+                        link.innerText = 'Edit 📝';
+                        // add some styles to the edit button
+                        link.style.backgroundColor = '#f1f1f1';
+                        link.style.color = '#333';
+                        link.style.borderRadius = '5px';
+                        link.style.border = '1px solid #ccc';
+                        link.style.textDecoration = 'none';
+                        link.style.boxShadow = '0 0 10px rgba(0,0,0,0.1)';
+                        link.style.zIndex = '9999';
+                        link.style.fontFamily = 'Arial, sans-serif';
+                        link.style.fontSize = '14px';
+                        // open the link in a new tab
+                        link.setAttribute('target', '_blank');
                         // append the link to the div
                         editLink.appendChild(link);
                     }

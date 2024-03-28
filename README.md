@@ -4,7 +4,7 @@ _Entry Editor Link_ is a plugin for Craft CMS, version 4 or version 5. It helps 
 
 See the [Overview](#overview) section for more information.
 
-The screenshot below is an example of how my blog looks to me when I'm logged into Craft CMS. I can click the pencil icon to edit the entry.
+The screenshot below is an example of how my blog looks to me when I'm logged into Craft CMS. A pencil icon link allows me to quickly jump to entry's edit page in the control panel.
 
 ![screenshot.png](screenshot.png)
 

@@ -133,7 +133,7 @@ window.addEventListener('load', () => {
 
 If you're using FastCGI Cache, you'll need to add a rule to prevent the plugin's API endpoint from being cached. This is because the plugin's API endpoint returns different data depending on whether the user is logged in and has permission to edit the entry. If the endpoint is cached, the edit link will be shown to users who don't have permission to edit the entry.
 
-Here are examples of what that rule might look like for Apache and Nginx servers. Your server may require a different rules, but this should give you an idea of how to excluse `^/actions/entry-editor-links` URLs from being cached.
+Here are examples of what that rule might look like for Apache and Nginx servers. Your server may require a different rules, but this should give you an idea of how to exclude `^/actions/entry-editor-links` URLs from being cached.
 
 #### Using a `.htaccess` file with an Apache server
 

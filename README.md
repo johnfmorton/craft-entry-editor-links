@@ -1,8 +1,10 @@
 # Entry Editor Link Plugin
 
-This is a plugin for Craft CMS, version 4 or version 5. It helps make front-end entry edit links for your entry authors. It's design to work well with statically cached sites, like those using FastCGI Cache. See the [Overview](#overview) section below for more information.
+_Entry Editor Link_ is a plugin for Craft CMS, version 4 or version 5. It helps create "edit this entry" links for your entry authors on the front-end pages of your site. It's design to work well with statically cached sites, like those using FastCGI Cache.
 
-Here's an example of how my blog looks to me when I'm logged into the site. I can click the pencil icon to edit the entry in the control panel.
+See the [Overview](#overview) section for more information.
+
+The screenshot below is an example of how my blog looks to me when I'm logged into Craft CMS. I can click the pencil icon to edit the entry.
 
 ![screenshot.png](screenshot.png)
 
@@ -35,11 +37,11 @@ composer require johnfmorton/craft-entry-editor-links
 
 ### Overview
 
-This plugin helps generate links to the Craft CMS entry editor for a given entry. This functionality is easy to create in Twig templates, but if you have a page statically cached, like with FastCGI Cache, you could run into instances where the edit entry link is shown to a user who doesn't have permission to edit the entry.
+This plugin helps generate links to an entry's edit page within the Craft CMS control panel. While this functionality is easy to create in Twig templates, using the [`getCpEditUrl`](https://docs.craftcms.com/api/v4/craft-models-entrytype.html#method-getcpediturl) function. Using this function on statically cached pages risks exposing the entry's edit URL to users who don't have permission to edit the entry.
 
-This plugin solves that problem by providing a Twig function that can be used to determine if a page is being rendered on the front end of the site. If it is, you can render a `data-edit-link` attribute on the element in your template displaying the entry ID. Then, using JavaScript, you can query the plugin's API endpoint which will return the control panel edit URL if the user is logged in and has permission to edit the entry. Then you can add a link to the edit page in the DOM for the entry.
+This plugin solves that problem by creating an API endpoint that returns the entry's edit URL _only for logged-in Craft users that have permission to edit the entry_. You can then use Javascript to render the edit link in the DOM. Sample Javascript to do this is in the [Using the plugin](#using-the-plugin) section below.
 
-Exposing only an entry ID helps prevent leaking information about your site's structure to users who don't have permission to edit entries.
+The edit button should only be rendered on the front end of the site, not when the entry is displayed in the Preview pane within the control panel. The plugin provides a Twig function, `isFrontEndPageView()`, that can be used to determine if a page is being rendered on the front end of the site. This conditional allows you to render the `data-edit-link` attribute only on the front end of the site.
 
 ### Plugin functionality
 
@@ -52,13 +54,13 @@ The plugin does two things:
 
 The first step is to render the `data-edit-link` attribute on the element in your template to display the entry ID for the entry you wish to be able to edit. 
 
-Do this by wrapping the attribute in a conditional that checks if the page is being rendered on the front end of the site. 
+Do this by wrapping the attribute in the `isFrontEndPageView` conditional that checks if the page is being rendered on the front end of the site. 
 
 ```
 {% if isFrontEndPageView() %}data-edit-link="{{ entry.id }}"{% endif %}
 ```
 
-If you have a list of entries, you can add the `data-edit-link` attribute to the element that wraps each entry. For example, you can put this data attribute on the `article` element that wraps each entry.
+For example, if you have a list of entries, you can add the `data-edit-link` attribute to the element that wraps each entry. You can put this data attribute on the `article` element that wraps each entry.
 
 ```
 <article {% if isFrontEndPageView() and (entry is defined) %} data-edit-link="{{ entry.id }}"{% endif %}>
@@ -69,7 +71,7 @@ If you have a list of entries, you can add the `data-edit-link` attribute to the
 
 Then, after a page loads, look for any instance of the `data-edit-link` attribute and query the plugin's API endpoint to get the entry's edit URL. If the user is logged in and has permission to edit the entry, the plugin will return the entry's edit URL. Then you can add a link to the edit page in the DOM for the entry.
 
-Here's a basic example of how you can do this using JavaScript. You can add this to a JavaScript file that is loaded on the front end of your site.
+Here's a basic example of how you can do this using JavaScript. You can add this to a JavaScript file that is loaded on the front end of your site. You will likely want to customize the styles and text of the edit link to match your site's design.
 
 ```
 window.addEventListener('load', () => {
@@ -131,7 +133,7 @@ window.addEventListener('load', () => {
 
 If you're using FastCGI Cache, you'll need to add a rule to prevent the plugin's API endpoint from being cached. This is because the plugin's API endpoint returns different data depending on whether the user is logged in and has permission to edit the entry. If the endpoint is cached, the edit link will be shown to users who don't have permission to edit the entry.
 
-Here are examples of what that rule might look like for Apache and Nginx servers. Your server may require a different rules, but this should give you an idea of what you need to do.
+Here are examples of what that rule might look like for Apache and Nginx servers. Your server may require a different rules, but this should give you an idea of how to excluse `^/actions/entry-editor-links` URLs from being cached.
 
 #### Using a `.htaccess` file with an Apache server
 

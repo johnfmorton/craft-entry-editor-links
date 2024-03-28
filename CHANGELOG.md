@@ -1,5 +1,13 @@
 # Release Notes for Entry Editor Links
 
+## 5.0.0 - 2024-03-28
+
+### Added
+- The plugin now supports Craft 5.
+- The version number has jumped to v5 to reflect the Craft version compatibility.
+- The documentation has been updated. 
+- The functionality of the plugin have not changed.
+
 ## 1.0.3 - 2023-06-04
 
 ### Added
